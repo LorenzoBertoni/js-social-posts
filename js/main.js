@@ -56,6 +56,8 @@ const posts = [
     }
 ];
 
+let likedPosts = [];
+
 posts.forEach((post) => {
     let containerDom = document.getElementById('container'); // MAIN CONTAINER
 
@@ -124,13 +126,30 @@ posts.forEach((post) => {
 
     let likesCounter = document.createElement('div');
     likesCounter.classList.add('likes__counter');
-        likesCounter.innerHTML = `Piace a <b id='like-counter-1' class='js-likes-counter'>${post.likes}</b> persone`;
+        likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes}</b> persone`;
 
     likes.append(likesCta, likesCounter);
 
     let likeButton = document.createElement('a');
     likeButton.classList.add('like-button', 'js-like-button');
     likeButton.href = '#';
+    likeButton.setAttribute('data-postid', post.id);
+        likeButton.addEventListener('click', 
+            function (event) {
+                event.preventDefault();
+                let attribute = likeButton.getAttribute('data-postid');
+                if (!likedPosts.includes(attribute)) {
+                    this.classList.add('like-button--liked');
+                    likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes + 1}</b> persone`;
+                    likedPosts.push(attribute);
+                } else {
+                    this.classList.remove('like-button--liked');
+                    likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes}</b> persone`;
+                    likedPosts.pop(attribute);
+                }
+
+            });
+
 
     likesCta.append(likeButton);
 
