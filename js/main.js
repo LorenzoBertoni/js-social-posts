@@ -55,3 +55,95 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+posts.forEach((post) => {
+    let containerDom = document.getElementById('container'); // MAIN CONTAINER
+
+    let postWrapper = document.createElement('div')
+    postWrapper.classList.add('post'); // POST --->
+
+    let postHeader = document.createElement('div')
+    postHeader.classList.add('post__header'); //POST-HEADER ->
+    postWrapper.append(postHeader);//-> APPESO A POST
+
+    let postMeta = document.createElement('div');
+    postMeta.classList.add('post-meta'); //POST-META ->
+    postHeader.append(postMeta); //-> APPESO A POST-HEADER
+
+    let postMetaIcon = document.createElement('div');
+    postMetaIcon.classList.add('post-meta__icon');//POST-META-ICON --> 
+
+    let postMetaData = document.createElement('div');
+    postMetaData.classList.add('post-meta__data');//POST-META-DATA -->
+
+    postMeta.append(postMetaIcon, postMetaData);//--> APPESI A POST-META
+
+    let profilePic = document.createElement('img');
+    profilePic.classList.add('profile-pic'); //PROFILE-PIC ->
+        profilePic.src = post.author.image;
+
+    postMetaIcon.append(profilePic);// -> APPESA A POST-META-ICON
+
+    let postMetaAuthor = document.createElement('div');
+    postMetaAuthor.classList.add('post-meta__author'); //AUTORE-->
+        postMetaAuthor.innerText = post.author.name;
+
+    let postMetaTime = document.createElement('div'); 
+    postMetaTime.classList.add('post-meta__time'); //DATA-->
+        postMetaTime.innerText = post.created;
+    
+    postMetaData.append(postMetaAuthor, postMetaTime);//--> APPESI A POST-META-TIME
+    //FINE HEADER
+
+    let postText = document.createElement('div');
+    postText.classList.add('post__text'); //POST TEXT-->
+        postText.innerText = post.content;
+
+    let postImage = document.createElement('div');
+    postImage.classList.add('post__image');//POST IMAGE WRAPPER-->
+
+    postWrapper.append(postText, postImage);//--> APPESI A POST
+    
+    let postImageInnerImg = document.createElement('img');//POST IMAGE
+        postImageInnerImg.src = post.media;
+
+    postImage.append(postImageInnerImg);
+
+    let postFooter = document.createElement('div');
+    postFooter.classList.add('post__footer'); //FOOTER->
+
+    postWrapper.append(postFooter);//-> APPESO A POST
+
+    let likes = document.createElement('div');
+    likes.classList.add('likes', 'js-likes');
+
+    postFooter.append(likes);
+
+    let likesCta = document.createElement('div');
+    likesCta.classList.add('likes__cta');
+
+    let likesCounter = document.createElement('div');
+    likesCounter.classList.add('likes__counter');
+        likesCounter.innerHTML = `Piace a <b id='like-counter-1' class='js-likes-counter'>${post.likes}</b> persone`;
+
+    likes.append(likesCta, likesCounter);
+
+    let likeButton = document.createElement('a');
+    likeButton.classList.add('like-button', 'js-like-button');
+    likeButton.href = '#';
+
+    likesCta.append(likeButton);
+
+    let icon = document.createElement('i');
+    icon.classList.add('like-button__icon', 'fas', 'fa-thumbs-up');
+    icon.ariaHidden = 'true';
+
+    let likeButtonLabel = document.createElement('span');
+    likeButtonLabel.classList.add('like-button__label');
+        likeButtonLabel.innerText = 'Mi piace';
+
+    likeButton.append(icon, likeButtonLabel);
+
+
+    containerDom.append(postWrapper);// ---> APPESO AL MAIN CONTAINER
+}); 
