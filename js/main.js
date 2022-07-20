@@ -79,10 +79,19 @@ posts.forEach((post) => {
     postMetaData.classList.add('post-meta__data');//POST-META-DATA -->
 
     postMeta.append(postMetaIcon, postMetaData);//--> APPESI A POST-META
-
-    let profilePic = document.createElement('img');
-    profilePic.classList.add('profile-pic'); //PROFILE-PIC ->
-        profilePic.src = post.author.image;
+    let profilePic;
+    if (post.author.image == null) {
+            profilePic = document.createElement('div');
+            profilePic.classList.add('profile-pic-default');
+            let innerSpan = document.createElement('span');
+            innerSpan.innerHTML = post.author.name.charAt(0) + post.author.name.charAt(5);
+            profilePic.append(innerSpan);
+        
+        } else {
+            profilePic = document.createElement('img');
+            profilePic.classList.add('profile-pic'); //PROFILE-PIC ->
+            profilePic.src = post.author.image;
+        }
 
     postMetaIcon.append(profilePic);// -> APPESA A POST-META-ICON
 
