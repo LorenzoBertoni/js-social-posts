@@ -61,10 +61,10 @@ let likedPosts = [];
 posts.forEach((post) => {
     let containerDom = document.getElementById('container'); // MAIN CONTAINER
 
-    let postWrapper = document.createElement('div')
+    let postWrapper = document.createElement('div');
     postWrapper.classList.add('post'); // POST --->
 
-    let postHeader = document.createElement('div')
+    let postHeader = document.createElement('div');
     postHeader.classList.add('post__header'); //POST-HEADER ->
     postWrapper.append(postHeader);//-> APPESO A POST
 
@@ -137,17 +137,7 @@ posts.forEach((post) => {
         likeButton.addEventListener('click', 
             function (event) {
                 event.preventDefault();
-                let attribute = likeButton.getAttribute('data-postid');
-                if (!likedPosts.includes(attribute)) {
-                    this.classList.add('like-button--liked');
-                    likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes + 1}</b> persone`;
-                    likedPosts.push(attribute);
-                } else {
-                    this.classList.remove('like-button--liked');
-                    likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes}</b> persone`;
-                    likedPosts.pop(attribute);
-                }
-
+                pushLikeButton(likeButton, likesCounter, post);
             });
 
 
@@ -165,4 +155,18 @@ posts.forEach((post) => {
 
 
     containerDom.append(postWrapper);// ---> APPESO AL MAIN CONTAINER
-}); 
+});
+
+
+function pushLikeButton (likeButton, likesCounter, post) {
+    let attribute = likeButton.getAttribute('data-postid');
+                if (!likedPosts.includes(attribute)) {
+                    likeButton.classList.add('like-button--liked');
+                    likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes + 1}</b> persone`;
+                    likedPosts.push(attribute);
+                } else {
+                    likeButton.classList.remove('like-button--liked');
+                    likesCounter.innerHTML = `Piace a <b id='like-counter-${post.id}' class='js-likes-counter'>${post.likes}</b> persone`;
+                    likedPosts.pop(attribute);
+                }
+}
